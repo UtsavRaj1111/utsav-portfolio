@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="en" class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utsav Raj Pratik — Full Stack Developer</title>
+    <meta name="description"
+        content="Utsav Raj - Full Stack Developer specializing in React, Node.js, and Python. Explore my portfolio and projects.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+
+    <!-- External SDKs and Libraries -->
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+    <script src="/_sdk/element_sdk.js"></script>
+    <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        indigo: { 400: '#818cf8', 500: '#6366f1', 600: '#4f46e5' },
+                        purple: { 400: '#c084fc', 500: '#a855f7' },
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="h-full">
+    <!-- Loading Screen -->
+    <div class="loader-screen fixed inset-0 flex items-center justify-center" id="loader">
+        <div class="flex flex-col items-center gap-6">
+            <div class="loader-cube"></div>
+            <p class="text-xs text-indigo-400 font-mono tracking-[0.3em] uppercase opacity-80">System Initializing</p>
+        </div>
+    </div>
+
+    <!-- Background Elements -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Main App -->
+    <div class="app-root" id="appRoot">
+        <!-- Navigation -->
+        <nav class="fixed top-0 left-0 w-full z-50 glass-strong" id="mainNav">
+            <div class="max-w-6xl mx-auto px-8 py-5 flex items-center justify-between">
+                <a href="#hero" class="group flex items-center gap-4">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="UR Logo"
+                        class="h-7 w-auto group-hover:scale-110 transition-transform duration-300">
+                    <span
+                        class="text-white font-bold tracking-tight text-sm uppercase group-hover:text-indigo-400 transition-colors">Utsav
+                        Raj</span>
+                </a>
+
+                <div class="hidden md:flex items-center gap-10">
+                    <a href="#about" class="nav-link text-xs uppercase tracking-widest">About</a>
+                    <a href="#skills" class="nav-link text-xs uppercase tracking-widest">Skills</a>
+                    <a href="#projects" class="nav-link text-xs uppercase tracking-widest">Projects</a>
+                    <a href="#journey" class="nav-link text-xs uppercase tracking-widest">Journey</a>
+                    <a href="#contact"
+                        class="px-5 py-2 rounded-full border border-indigo-500/30 text-indigo-400 text-xs uppercase tracking-widest hover:bg-indigo-500 hover:text-white transition-all duration-300">Hire
+                        Me</a>
+                </div>
+
+                <button id="mobileMenuBtn" class="md:hidden text-white opacity-70 hover:opacity-100 transition-opacity"
+                    aria-label="Menu">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <!-- Mobile menu -->
+            <div id="mobileMenu"
+                class="hidden md:hidden px-8 pb-8 pt-4 flex flex-col gap-5 border-t border-white/5 bg-[#050510]">
+                <a href="#about" class="nav-link py-2">About</a>
+                <a href="#skills" class="nav-link py-2">Skills</a>
+                <a href="#projects" class="nav-link py-2">Projects</a>
+                <a href="#journey" class="nav-link py-2">Journey</a>
+                <a href="#contact" class="nav-link py-2">Contact</a>
+            </div>
+        </nav>
+
+        <!-- HERO SECTION -->
+        <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 pointer-events-none">
+                <div class="absolute top-1/4 -left-20 w-[400px] h-[400px] bg-indigo-500/5 blur-[120px] rounded-full">
+                </div>
+                <div
+                    class="absolute bottom-1/4 -right-20 w-[400px] h-[400px] bg-purple-500/5 blur-[120px] rounded-full">
+                </div>
+            </div>
+
+            <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
+                <div class="reveal mb-8 inline-flex items-center gap-3 glass px-5 py-2 rounded-full shadow-2xl">
+                    <span class="flex h-2 w-2 relative">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                    </span>
+                    <span class="text-[10px] uppercase tracking-[0.2em] font-bold text-indigo-300">Available for
+                        innovative projects</span>
+                </div>
+
+                <h1 class="hero-title reveal mb-6">
+                    <span class="text-white/60 font-light block mb-2">Hello, I'm</span>
+                    <span class="grad-text glow-text block" id="heroName">Utsav Raj Pratik</span>
+                </h1>
+
+                <p class="reveal text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed"
+                    id="heroTagline">
+                    Designing and building scalable, AI-powered web applications with modern technologies.
+                </p>
+
+                <div class="reveal h-12 flex items-center justify-center gap-2 mb-12">
+                    <span
+                        class="font-mono text-indigo-400 text-sm md:text-base border-r-2 border-indigo-500 pr-2 h-6 flex items-center"
+                        id="typingText"></span>
+                    <span class="type-cursor opacity-0"></span>
+                </div>
+
+                <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-6">
+                    <a href="#projects"
+                        class="btn-primary group flex items-center gap-3 px-10 py-4 rounded-2xl text-sm font-bold tracking-widest uppercase transition-all">
+                        <i data-lucide="layout-grid"
+                            class="w-4 h-4 group-hover:rotate-90 transition-transform duration-500"></i>
+                        Explore Portfolio
+                    </a>
+                    <a href="#contact"
+                        class="glass group flex items-center gap-3 px-10 py-4 rounded-2xl text-sm font-bold tracking-widest uppercase text-white/80 hover:text-white transition-all">
+                        <i data-lucide="mail" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        Get In Touch
+                    </a>
+                </div>
+
+            </div>
+        </section>
+        <!-- ABOUT SECTION -->
+        <section id="about" class="section-pad relative overflow-hidden">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+                    <!-- Left: Narrative -->
+                    <div class="reveal space-y-12">
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-3">
+                                <div class="h-[1px] w-8 bg-indigo-500/50"></div>
+                                <span class="font-mono text-[10px] text-indigo-400 tracking-[0.4em] uppercase">The
+                                    Narrative</span>
+                            </div>
+                            <h2 class="text-4xl md:text-6xl font-black text-white leading-[1.1]">
+                                Engineering with <br>
+                                <span class="grad-text">Passion & Precision</span>
+                            </h2>
+                            <div class="space-y-6 text-slate-400 text-lg leading-relaxed max-w-xl">
+                                <p>
+                                    I am an AI/ML engineering student and Full Stack Developer focused on architecting
+                                    high-performance applications that bridge the gap between complex logic and seamless
+                                    user experience.
+                                </p>
+                                <p class="text-base text-slate-500 italic border-l-2 border-indigo-500/30 pl-6">
+                                    "Build with intelligence, scale with purpose."
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Expertise -->
+                        <div class="space-y-6">
+                            <h3 class="font-mono text-[10px] text-slate-600 uppercase tracking-[0.4em]">Strategic Focus
+                            </h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div
+                                    class="p-4 rounded-2xl glass border-white/5 hover:border-indigo-500/30 transition-all group">
+                                    <div class="flex items-center gap-4">
+                                        <div
+                                            class="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-all">
+                                            <i data-lucide="brain-circuit" class="w-5 h-5"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-xs font-black text-white uppercase tracking-wider">AI
+                                                Systems</h4>
+                                            <p class="text-[10px] text-slate-500 mt-0.5">Neural Nets & Agents</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="p-4 rounded-2xl glass border-white/5 hover:border-purple-500/30 transition-all group">
+                                    <div class="flex items-center gap-4">
+                                        <div
+                                            class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400 group-hover:bg-purple-500 group-hover:text-white transition-all">
+                                            <i data-lucide="layers" class="w-5 h-5"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-xs font-black text-white uppercase tracking-wider">Full
+                                                Stack</h4>
+                                            <p class="text-[10px] text-slate-500 mt-0.5">Modern Ecosystems</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="p-4 rounded-2xl glass border-white/5 hover:border-cyan-500/30 transition-all group">
+                                    <div class="flex items-center gap-4">
+                                        <div
+                                            class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-500 group-hover:text-white transition-all">
+                                            <i data-lucide="binary" class="w-5 h-5"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-xs font-black text-white uppercase tracking-wider">
+                                                Algorithms</h4>
+                                            <p class="text-[10px] text-slate-500 mt-0.5">Efficiency & Logic</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="p-4 rounded-2xl glass border-white/5 hover:border-orange-500/30 transition-all group">
+                                    <div class="flex items-center gap-4">
+                                        <div
+                                            class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-400 group-hover:bg-orange-500 group-hover:text-white transition-all">
+                                            <i data-lucide="trophy" class="w-5 h-5"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-xs font-black text-white uppercase tracking-wider">
+                                                Competitive</h4>
+                                            <p class="text-[10px] text-slate-500 mt-0.5">Problem Solving</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Profile Object -->
+                    <div class="reveal stagger-1 lg:sticky lg:top-32">
+                        <div class="glass p-1 rounded-3xl glow-border">
+                            <div class="bg-[#080816] rounded-[1.4rem] overflow-hidden">
+                                <div
+                                    class="flex items-center justify-between px-6 py-4 border-b border-white/5 bg-white/[0.02]">
+                                    <div class="flex gap-2">
+                                        <div class="w-3 h-3 rounded-full bg-red-500/30"></div>
+                                        <div class="w-3 h-3 rounded-full bg-yellow-500/30"></div>
+                                        <div class="w-3 h-3 rounded-full bg-green-500/30"></div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="file-json" class="w-3 h-3 text-slate-500"></i>
+                                        <span
+                                            class="text-[10px] font-mono text-slate-500 uppercase tracking-widest">profile.json</span>
+                                    </div>
+                                    <div class="w-10"></div>
+                                </div>
+                                <div class="p-8 md:p-12 font-mono text-sm leading-relaxed">
+                                    <div class="flex gap-4">
+                                        <span class="text-slate-600 select-none">01</span>
+                                        <span class="text-indigo-400">{</span>
+                                    </div>
+                                    <div class="flex gap-4">
+                                        <span class="text-slate-600 select-none">02</span>
+                                        <span class="pl-4"><span class="text-purple-400">"identity"</span>: <span
+                                                class="text-emerald-400">"Utsav Raj Pratik"</span>,</span>
+                                    </div>
+                                    <div class="flex gap-4">
+                                        <span class="text-slate-600 select-none">03</span>
+                                        <span class="pl-4"><span class="text-purple-400">"role"</span>: <span
+                                                class="text-emerald-400">"AI/ML Developer"</span>,</span>
+                                    </div>
+                                    <div class="flex gap-4">
+                                        <span class="text-slate-600 select-none">04</span>
+                                        <span class="pl-4"><span class="text-purple-400">"email"</span>: <span
+                                                class="text-emerald-400">"utsavrajpratik@gmail.com"</span>,</span>
+                                    </div>
+                                    <div class="flex gap-4">
+                                        <span class="text-slate-600 select-none">05</span>
+                                        <span class="pl-4"><span class="text-purple-400">"location"</span>: <span
+                                                class="text-emerald-400">"Chandigarh, India"</span>,</span>
+                                    </div>
+                                    <div class="flex gap-4">
+                                        <span class="text-slate-600 select-none">06</span>
+                                        <span class="pl-4"><span class="text-purple-400">"status"</span>: <span
+                                                class="text-indigo-400">"Active"</span></span>
+                                    </div>
+                                    <div class="flex gap-4">
+                                        <span class="text-slate-600 select-none">07</span>
+                                        <span class="text-indigo-400">}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="skills" class="section-pad bg-white/[0.01]">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-20 reveal">
+                <span class="font-mono text-xs text-indigo-400 tracking-[0.4em] uppercase mb-4 block">Expertise</span>
+                <h2 class="text-4xl md:text-5xl font-black text-white">Powering My <span
+                        class="text-indigo-500">Creativity</span></h2>
+            </div>
+
+            <div class="space-y-20">
+                <!-- Frontend -->
+                <div class="reveal">
+                    <h3
+                        class="text-sm font-black text-slate-400 mb-10 flex items-center gap-4 tracking-[0.3em] uppercase">
+                        <span class="w-12 h-[1px] bg-indigo-500/50"></span> Frontend Development
+                    </h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6" id="frontendGrid"></div>
+                </div>
+
+                <!-- Backend -->
+                <div class="reveal">
+                    <h3
+                        class="text-sm font-black text-slate-400 mb-10 flex items-center gap-4 tracking-[0.3em] uppercase">
+                        <span class="w-12 h-[1px] bg-indigo-500/50"></span> Backend & Logic
+                    </h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6" id="backendGrid"></div>
+                </div>
+
+                <!-- Database -->
+                <div class="reveal">
+                    <h3
+                        class="text-sm font-black text-slate-400 mb-10 flex items-center gap-4 tracking-[0.3em] uppercase">
+                        <span class="w-12 h-[1px] bg-indigo-500/50"></span> Database Systems
+                    </h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6" id="databaseGrid"></div>
+                </div>
+
+                <!-- Tools -->
+                <div class="reveal">
+                    <h3
+                        class="text-sm font-black text-slate-400 mb-10 flex items-center gap-4 tracking-[0.3em] uppercase">
+                        <span class="w-12 h-[1px] bg-indigo-500/50"></span> Tools & Workflow
+                    </h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6" id="toolsGrid"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects" class="section-pad">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8 reveal">
+                <div>
+                    <span class="font-mono text-xs text-indigo-400 tracking-[0.4em] uppercase mb-4 block">Work
+                        Showcase</span>
+                    <h2 class="text-4xl md:text-5xl font-black text-white">Featured <span
+                            class="text-indigo-500">Creations</span></h2>
+                </div>
+                <div id="projectsLoading"
+                    class="flex items-center gap-3 px-6 py-3 rounded-2xl glass border-indigo-500/10">
+                    <div class="w-4 h-4 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin">
+                    </div>
+                    <span class="text-xs font-mono text-slate-500">Syncing GitHub...</span>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="projectsGrid"></div>
+
+            <!-- Stats Grid -->
+            <div class="mt-24 reveal">
+                <div class="glass p-12 border-t border-indigo-500/20 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-500/5 blur-3xl -mr-32 -mt-32"></div>
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-12 relative z-10" id="statsGrid">
+                        <div class="text-center group">
+                            <p class="text-5xl font-black grad-text mb-2 count-up" data-target="30">0</p>
+                            <p
+                                class="text-[10px] font-mono text-slate-500 uppercase tracking-widest group-hover:text-indigo-400 transition-colors">
+                                Repositories</p>
+                        </div>
+                        <div class="text-center group">
+                            <p class="text-5xl font-black grad-text mb-2 count-up" data-target="150">0</p>
+                            <p
+                                class="text-[10px] font-mono text-slate-500 uppercase tracking-widest group-hover:text-indigo-400 transition-colors">
+                                Stars Earned</p>
+                        </div>
+                        <div class="text-center group">
+                            <p class="text-5xl font-black grad-text mb-2 count-up" data-target="500">0</p>
+                            <p
+                                class="text-[10px] font-mono text-slate-500 uppercase tracking-widest group-hover:text-indigo-400 transition-colors">
+                                Contributions</p>
+                        </div>
+                        <div class="text-center group">
+                            <p class="text-5xl font-black grad-text mb-2 count-up" data-target="30">0</p>
+                            <p
+                                class="text-[10px] font-mono text-slate-500 uppercase tracking-widest group-hover:text-indigo-400 transition-colors">
+                                Forks</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JOURNEY SECTION -->
+    <section id="journey" class="section-pad bg-white/[0.01]">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-20 reveal">
+                <span class="font-mono text-xs text-indigo-400 tracking-[0.4em] uppercase mb-4 block">Milestones</span>
+                <h2 class="text-4xl md:text-5xl font-black text-white">Professional <span
+                        class="text-indigo-500">Path</span></h2>
+            </div>
+
+            <div class="relative pl-8 md:pl-0">
+                <div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-indigo-500/20 -translate-x-1/2">
+                </div>
+                <div class="space-y-16" id="timelineItems">
+                    <!-- Injected by JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="section-pad">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <span
+                        class="font-mono text-xs text-indigo-400 tracking-[0.4em] uppercase mb-4 block">Connection</span>
+                    <h2 class="text-4xl md:text-5xl font-black text-white mb-8">Let's Build Something <span
+                            class="text-indigo-500">Remarkable</span></h2>
+                    <p class="text-slate-400 text-lg mb-12 leading-relaxed">
+                        Have a project in mind or just want to chat about the latest in tech? Feel free to reach
+                        out. I'm always open to new opportunities and collaborations.
+                    </p>
+
+                    <div class="space-y-6">
+                        <!-- Email -->
+                        <a href="mailto:utsavrajpratik@gmail.com" class="flex items-center gap-6 group">
+                            <div
+                                class="w-14 h-14 rounded-2xl glass flex items-center justify-center text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-all">
+                                <i data-lucide="mail" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-mono text-slate-500 uppercase tracking-widest mb-1">Email</p>
+                                <p class="text-white font-semibold group-hover:text-indigo-400 transition-colors">
+                                    utsavrajpratik@gmail.com</p>
+                            </div>
+                        </a>
+
+                        <!-- Location -->
+                        <div class="flex items-center gap-6 group">
+                            <div
+                                class="w-14 h-14 rounded-2xl glass flex items-center justify-center text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-all">
+                                <i data-lucide="map-pin" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-mono text-slate-500 uppercase tracking-widest mb-1">Location</p>
+                                <p class="text-white font-semibold">Chandigarh, India</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="flex gap-4 mt-12">
+                        <a href="https://github.com/UtsavRaj1111" target="_blank" rel="noopener noreferrer"
+                            class="w-12 h-12 rounded-xl glass flex items-center justify-center text-slate-400 hover:text-indigo-400 hover:border-indigo-500/30 transition-all z-10 relative">
+                            <i data-lucide="github" class="w-5 h-5"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/utsav-raj-pratik-77120a34a/" target="_blank"
+                            rel="noopener noreferrer"
+                            class="w-12 h-12 rounded-xl glass flex items-center justify-center text-slate-400 hover:text-indigo-400 hover:border-indigo-500/30 transition-all z-10 relative">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="reveal stagger-1">
+                    <div class="glass p-10 glow-border relative">
+                        <form id="contactForm" class="space-y-6 relative z-10">
+                            <div class="grid sm:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label
+                                        class="text-[10px] font-mono text-slate-500 uppercase tracking-widest ml-1">Full
+                                        Name</label>
+                                    <input id="cf-name" type="text" required
+                                        class="w-full px-6 py-4 rounded-xl text-sm text-white placeholder-slate-600 outline-none"
+                                        placeholder="John Doe">
+                                </div>
+                                <div class="space-y-2">
+                                    <label
+                                        class="text-[10px] font-mono text-slate-500 uppercase tracking-widest ml-1">Email
+                                        Address</label>
+                                    <input id="cf-email" type="email" required
+                                        class="w-full px-6 py-4 rounded-xl text-sm text-white placeholder-slate-600 outline-none"
+                                        placeholder="john@example.com">
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-mono text-slate-500 uppercase tracking-widest ml-1">Your
+                                    Message</label>
+                                <textarea id="cf-msg" rows="5" required
+                                    class="w-full px-6 py-4 rounded-xl text-sm text-white placeholder-slate-600 outline-none resize-none"
+                                    placeholder="Tell me about your project..."></textarea>
+                            </div>
+                            <button type="submit"
+                                class="btn-primary w-full py-5 rounded-2xl text-xs font-bold uppercase tracking-[0.2em] flex items-center justify-center gap-3">
+                                <i data-lucide="send" class="w-4 h-4"></i>
+                                <span id="sendBtnText">Dispatch Message</span>
+                            </button>
+                            <div id="formMsg" class="hidden text-center text-xs font-mono py-3 rounded-xl"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <!-- FOOTER -->
+    <footer class="pt-20 pb-10 border-t border-white/5 bg-black/60 relative overflow-hidden">
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute bottom-0 left-1/4 w-[300px] h-[300px] bg-indigo-500/5 blur-[100px] rounded-full"></div>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <!-- Brand Column -->
+                <div class="col-span-1 md:col-span-2">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="UR Logo"
+                        class="h-8 w-auto mb-6">
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-xs mb-8">
+                        Designing and building high-performance, AI-driven digital experiences. Let's create the future
+                        together.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="https://github.com/UtsavRaj1111" target="_blank" rel="noopener noreferrer"
+                            class="w-10 h-10 rounded-lg glass flex items-center justify-center text-slate-400 hover:text-indigo-400 hover:border-indigo-500/30 transition-all">
+                            <i data-lucide="github" class="w-5 h-5"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/utsav-raj-pratik-77120a34a/" target="_blank"
+                            rel="noopener noreferrer"
+                            class="w-10 h-10 rounded-lg glass flex items-center justify-center text-slate-400 hover:text-indigo-400 hover:border-indigo-500/30 transition-all">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div>
+                    <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-6">Navigation</h4>
+                    <ul class="space-y-4">
+                        <li><a href="#about"
+                                class="text-slate-500 hover:text-indigo-400 text-xs transition-colors">About Me</a></li>
+                        <li><a href="#skills"
+                                class="text-slate-500 hover:text-indigo-400 text-xs transition-colors">Expertise</a>
+                        </li>
+                        <li><a href="#projects"
+                                class="text-slate-500 hover:text-indigo-400 text-xs transition-colors">Portfolio</a>
+                        </li>
+                        <li><a href="#contact"
+                                class="text-slate-500 hover:text-indigo-400 text-xs transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-white font-bold text-sm uppercase tracking-widest mb-6">Resources</h4>
+                    <ul class="space-y-4">
+                        <li><a href="#"
+                                class="text-slate-500 hover:text-indigo-400 text-xs transition-colors">Resume</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="flex items-center gap-6">
+                    <p class="text-[10px] text-slate-500 font-mono uppercase tracking-[0.2em]">
+                        &copy; 2026 <span class="text-slate-200">Utsav Raj Pratik</span> — Built with <span class="text-indigo-400 relative">
+                            Passion
+                            <span class="absolute -inset-1 bg-indigo-500/10 blur-sm rounded-full animate-pulse"></span>
+                        </span>
+                    </p>
+                    <div class="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/5 border border-emerald-500/10">
+                        <span class="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span class="text-[8px] font-mono text-emerald-500/80 uppercase tracking-widest">Systems Active</span>
+                    </div>
+                </div>
+
+                <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" 
+                    class="group relative px-6 py-2 rounded-full glass border-white/5 hover:border-indigo-500/30 transition-all overflow-hidden">
+                    <div class="absolute inset-0 bg-indigo-500/0 group-hover:bg-indigo-500/5 transition-colors"></div>
+                    <div class="flex items-center gap-3 relative z-10">
+                        <span class="text-[10px] text-slate-400 font-mono uppercase tracking-[0.2em] group-hover:text-white transition-colors">Return to Top</span>
+                        <i data-lucide="arrow-up-circle" class="w-4 h-4 text-slate-500 group-hover:text-indigo-400 group-hover:-translate-y-0.5 transition-all"></i>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </footer>
+    </div>
+
+    <!-- Custom Script -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>
