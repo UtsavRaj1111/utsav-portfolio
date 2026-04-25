@@ -135,7 +135,7 @@ if (window.elementSdk) {
 
 // ====== TYPING ANIMATION ======
 (function initTyping() {
-  const words = ['Full Stack Architecture', 'Web3 & Blockchain', 'Competitive Programming', 'Open Source Crafting'];
+  const words = ['AI / Machine Learning', 'Full Stack Development', 'Data Structures & Algorithms', 'Competitive Programming', 'Developer Tools & Automation'];
   let wordIdx = 0, charIdx = 0, deleting = false;
   const el = document.getElementById('typingText');
   if (!el) return;

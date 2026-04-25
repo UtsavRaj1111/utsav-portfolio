@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="h-full">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -11,19 +11,29 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
 
-    <!-- External SDKs and Libraries -->
+    <!-- Standard Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com/3.4.17"></script>
     <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
-    <script src="/_sdk/element_sdk.js"></script>
-    <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
 
     <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Inline Core Variables (Fallback) -->
+    <style>
+        :root {
+            --bg-deep: #050510;
+            --primary: #6366f1;
+            --secondary: #c084fc;
+            --primary-glow: rgba(99, 102, 241, 0.5);
+            --font-main: 'Outfit', sans-serif;
+        }
+        body { background-color: var(--bg-deep); color: #e2e8f0; font-family: var(--font-main); margin: 0; }
+        .app-root { opacity: 0; transition: opacity 0.5s ease-in; }
+        .app-root.loaded { opacity: 1; }
+    </style>
+
+    <!-- Custom Styles with Cache Buster -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=1.2">
 
     <script>
         tailwind.config = {
@@ -32,6 +42,10 @@
                     colors: {
                         indigo: { 400: '#818cf8', 500: '#6366f1', 600: '#4f46e5' },
                         purple: { 400: '#c084fc', 500: '#a855f7' },
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
                     }
                 }
             }
@@ -39,7 +53,7 @@
     </script>
 </head>
 
-<body class="h-full">
+<body>
     <!-- Loading Screen -->
     <div class="loader-screen fixed inset-0 flex items-center justify-center" id="loader">
         <div class="flex flex-col items-center gap-6">
@@ -604,8 +618,15 @@
     </footer>
     </div>
 
-    <!-- Custom Script -->
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <!-- Custom Script with Cache Buster -->
+    <script src="{{ url_for('static', filename='js/script.js') }}?v=1.2"></script>
+    
+    <script>
+        // Ensure UI stays hidden until CSS/Tailwind is ready to avoid "broken" flash
+        window.addEventListener('load', () => {
+            document.getElementById('appRoot').classList.add('loaded');
+        });
+    </script>
 </body>
 
 </html>
